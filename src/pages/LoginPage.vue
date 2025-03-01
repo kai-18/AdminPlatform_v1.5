@@ -28,7 +28,6 @@ import axios from "axios";
 
 const username = ref("");
 const password = ref("");
-// const $q = useQuasar();
 const router = useRouter();
 
 const login = async () => {

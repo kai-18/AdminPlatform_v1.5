@@ -1,9 +1,7 @@
 package main
 
 import (
-	"crypto/sha256"
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -15,11 +13,6 @@ type User struct {
 	Lastname string `json:"lastname"`
 	Username string `json:"username"`
 	Password string `json:"password"`
-}
-
-func hashPassword(password string) string {
-	hash := sha256.Sum256([]byte(password))
-	return fmt.Sprintf("%x", hash)
 }
 
 func getUsers(w http.ResponseWriter, r *http.Request) {
@@ -92,7 +85,7 @@ func updateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	_, err = db.Exec("UPDATE users SET Name=?, Lastname=?, Username=?, Password=? WHERE Id=?",
-		user.Name, user.Lastname, user.Username, user.Password, user.ID)
+		user.Name, user.Lastname, user.Username, hashPassword(user.Password), user.ID)
 	if err != nil {
 		http.Error(w, "Error updating user: "+err.Error(), http.StatusInternalServerError)
 		return

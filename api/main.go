@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/sha256"
 	"database/sql"
 	"fmt"
 	"log"
@@ -12,10 +13,16 @@ import (
 	"github.com/gorilla/handlers"
 )
 
+func hashPassword(password string) string {
+	hash := sha256.Sum256([]byte(password))
+	return fmt.Sprintf("%x", hash)
+}
+
+
 func dbConnect() (*sql.DB, error) {
 	dbUser := "kai"
 	dbPassword := "Ricachonda18$$"
-	dbName := "test"
+	dbName := "srvdb"
 	dbHost := "localhost"
 	dbPort := "3306"
 
