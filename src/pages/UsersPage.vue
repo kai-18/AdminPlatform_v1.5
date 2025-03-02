@@ -201,7 +201,7 @@ const columns = [
 
 async function fetchUsers() {
   try {
-    const response = await axios.get('http://localhost:8080/api/users')
+    const response = await axios.get('http://192.168.1.101:8080/api/users')
     users.value = response.data
   } catch (error) {
     console.error('Error fetching users:', error)
@@ -215,7 +215,7 @@ async function createUser() {
       position: newUser.value.position === 'Other' ? newUser.value.customPosition : newUser.value.position
     }
 
-    await axios.post('http://localhost:8080/api/users/create', payload)
+    await axios.post('http://192.168.1.101:8080/api/users/create', payload)
 
     newUser.value = { name: '', lastname: '', username: '', password: ''}
     addDialog.value = false
@@ -232,7 +232,7 @@ async function updateUser() {
       position: editUser.value.position === 'Other' ? editUser.value.customPosition : editUser.value.position
     }
 
-    await axios.put('http://localhost:8080/api/users/update', payload)
+    await axios.put('http://192.168.1.101:8080/api/users/update', payload)
 
     editDialog.value = false
     fetchUsers()
@@ -243,7 +243,7 @@ async function updateUser() {
 
 async function deleteUser(id) {
   try {
-    await axios.delete('http://localhost:8080/api/users/delete', { data: { id: id } })
+    await axios.delete('http://192.168.1.101:8080/api/users/delete', { data: { id: id } })
     fetchUsers()
   } catch (error) {
     console.error('Error deleting user:', error)

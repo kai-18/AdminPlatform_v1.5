@@ -25,25 +25,32 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 // import { useQuasar } from "quasar";
 import axios from "axios";
+import { Notify } from 'quasar'
 
 const username = ref("");
 const password = ref("");
 const router = useRouter();
 
 const login = async () => {
-    const response = await axios.post("http://localhost:8080/api/login", {
+    const response = await axios.post("http://192.168.1.101:8080/api/login", {
       username: username.value,
       password: password.value,
     });
-
     localStorage.setItem("token", response.data.token);
     router.push("/dashboard");
-  };
 
+    if(username.value === "" || password.value === "") {
+      Notify.create({
+        type: 'negative',
+        message: 'Please fill in all fields'
+      })
+      return;
+    }
+  };
 </script>
 
 <style scoped>
-body{
+body {
   background-color: #4a5888;
 }
 </style>

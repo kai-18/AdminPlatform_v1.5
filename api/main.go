@@ -40,9 +40,8 @@ func main() {
 	//--------------------------LOGIN-AUTH-------------------------------
 	r := gin.Default()
 	r.POST("/api/login", loginAuth)
-	// r.Run(":8080")
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:9000"},
+		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		AllowCredentials: true,
@@ -83,5 +82,5 @@ func main() {
 	)
 
 	fmt.Println("Server started at http://localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", corsOptions(r)))
+	log.Fatal(http.ListenAndServe("0.0.0.0:8080", corsOptions(r)))
 }

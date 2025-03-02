@@ -264,7 +264,7 @@ const columns = [
 
 async function fetchEmployees() {
   try {
-    const response = await axios.get('http://localhost:8080/api/employees')
+    const response = await axios.get('http://192.168.1.101:8080/api/employees')
     employees.value = response.data
   } catch (error) {
     console.error('Error fetching employees:', error)
@@ -278,7 +278,7 @@ async function createEmployee() {
       position: newEmployee.value.position === 'Other' ? newEmployee.value.customPosition : newEmployee.value.position
     }
 
-    await axios.post('http://localhost:8080/api/employees/create', payload)
+    await axios.post('http://192.168.1.101:8080/api/employees/create', payload)
 
     newEmployee.value = { name: '', lastname: '', username: '', email: '', position: '', customPosition: '', address: '', date_of_birth: '', place_of_birth: '' }
     addDialog.value = false
@@ -295,7 +295,7 @@ async function updateEmployee() {
       position: editEmployee.value.position === 'Other' ? editEmployee.value.customPosition : editEmployee.value.position
     }
 
-    await axios.put('http://localhost:8080/api/employees/update', payload)
+    await axios.put('http://192.168.1.101:8080/api/employees/update', payload)
 
     editDialog.value = false
     fetchEmployees()
@@ -306,7 +306,7 @@ async function updateEmployee() {
 
 async function deleteEmployee(id) {
   try {
-    await axios.delete('http://localhost:8080/api/employees/delete', { data: { id: id } })
+    await axios.delete('http://192.168.1.101:8080/api/employees/delete', { data: { id: id } })
     fetchEmployees()
   } catch (error) {
     console.error('Error deleting employee:', error)
