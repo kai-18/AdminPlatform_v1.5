@@ -264,7 +264,7 @@ const columns = [
 
 async function fetchEmployees() {
   try {
-    const response = await axios.get('http://192.168.1.101:8080/api/employees')
+    const response = await axios.get('IP ADDRESS HERE')
     employees.value = response.data
   } catch (error) {
     console.error('Error fetching employees:', error)
